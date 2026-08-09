@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #c0c0c0;
+  --color-primary-hover: #a8a8a8;
+  --color-primary-light: #f0f0f0;
+
+  --color-secondary: #b08d57;
+  --color-secondary-light: #f0f0f0;
+
+  --color-accent: #d4a574;
+
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #8a8a8a;
+
+  --color-border: #e0e0e0;
+  --color-border-hover: #cccccc;
+
+  --font-heading: "Resort Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-admin: "DM Sans", sans-serif;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-hover);
+}
+
+::selection {
+  background-color: rgba(192, 192, 192, 0.2);
+  color: var(--color-text-primary);
+}
+
+body:has(.admin-root) {
+  background-color: #09090b;
+  color: #f4f4f5;
+  font-family: var(--font-admin);
+}
+
+body:has(.admin-root) h1,
+body:has(.admin-root) h2,
+body:has(.admin-root) h3,
+body:has(.admin-root) h4,
+body:has(.admin-root) h5,
+body:has(.admin-root) h6 {
+  font-family: var(--font-admin);
+}
+
+body:has(.admin-root) ::-webkit-scrollbar-track {
+  background: #18181b;
+}
+body:has(.admin-root) ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+body:has(.admin-root) ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+body:has(.admin-root) ::selection {
+  background-color: rgba(6, 182, 212, 0.15);
+  color: #f4f4f5;
+}
+
+@layer base {
+  .admin-root button,
+  .admin-root [role="button"],
+  .admin-root a {
+    cursor: pointer;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .group > .opacity-0 {
+    opacity: 1 !important;
+  }
+}
+
+/* ── Home background ── */
+.store-home-bg {
+  background-color: #f4f3f1;
+  background-image:
+    radial-gradient(
+        circle at 15% 20%,
+        rgba(255, 255, 255, 0.9) 0%,
+        transparent 3%
+      ),
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 2.5%
+    ),
+    radial-gradient(
+      circle at 65% 70%,
+      rgba(255, 255, 255, 0.9) 0%,
+      transparent 3%
+    ),
+    radial-gradient(
+      circle at 25% 80%,
+      rgba(255, 255, 255, 0.7) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+      circle at 90% 60%,
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+        circle at 45% 35%,
+        rgba(255, 255, 255, 0.75) 0%,
+        transparent 2.5%
+      ),
+    radial-gradient(
+      circle at 10% 55%,
+      rgba(255, 255, 255, 0.85) 0%,
+      transparent 3%
+    ),
+    radial-gradient(
+      circle at 70% 45%,
+      rgba(255, 255, 255, 0.7) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 2.5%
+    ),
+    radial-gradient(
+      circle at 35% 10%,
+      rgba(255, 255, 255, 0.9) 0%,
+      transparent 3%
+    ),
+    linear-gradient(135deg, #ececea 0%, #f6f5f3 40%, #e8e6e3 70%, #f2f1ee 100%);
+  background-repeat: no-repeat;
+}
+
+/* ── Tiptap Editor (admin) ── */
+.tiptap-editor .tiptap {
+  min-height: 100px;
+  padding: 0.75rem;
+  outline: none;
+  font-size: 0.875rem;
+  color: #e4e4e7;
+}
+
+.tiptap-editor .tiptap p {
+  margin: 0.25rem 0;
+}
+
+.tiptap-editor .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #52525b;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+.tiptap-editor .tiptap h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f4f4f5;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.tiptap-editor .tiptap ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.25rem 0;
+}
+
+.tiptap-editor .tiptap ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0.25rem 0;
+}
+
+.tiptap-editor .tiptap li {
+  margin: 0.125rem 0;
+}
+
+.tiptap-editor .tiptap strong {
+  font-weight: 600;
+  color: #f4f4f5;
+}
+
+.tiptap-editor .tiptap em {
+  font-style: italic;
+}
+
+/* ── Contenido renderizado en store ── */
+.markdown h2 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.markdown p {
+  margin: 0.5rem 0;
+}
+
+.markdown ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.markdown ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.markdown li {
+  margin: 0.25rem 0;
+  line-height: 1.6;
+}
+
+.markdown strong {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.markdown em {
+  font-style: italic;
+}
+
+.markdown a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown a:hover {
+  color: var(--color-primary-hover);
+}
