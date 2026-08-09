@@ -12,7 +12,7 @@ export function CTASection() {
 
   return (
     <section
-      className="relative h-[450px] md:h-[550px] flex items-center bg-cover bg-center bg-no-repeat max-w-7xl mx-auto rounded-xs"
+      className="relative h-[450px] md:h-[550px] flex items-center bg-cover bg-center bg-no-repeat max-w-7xl mx-auto rounded-xs overflow-hidden"
       style={{
         backgroundImage: "url('/home/bgcta.webp')",
         boxShadow: "0 0 40px rgba(0,0,0,0.3)",
