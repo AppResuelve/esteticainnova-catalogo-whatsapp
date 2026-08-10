@@ -44,7 +44,7 @@ export function TagGroup({
   }
 
   return (
-    <div className="mb-6">
+    <div className="mb-2">
       <div className="flex items-center gap-2 mb-3">
         <div
           className="w-2.5 h-2.5 rounded-full"
@@ -72,7 +72,7 @@ export function TagGroup({
         })}
       </div>
 
-      <hr className="border-[var(--color-border)] mt-3" />
+      <hr className="border-[var(--color-border)] mt-2" />
     </div>
   )
 }

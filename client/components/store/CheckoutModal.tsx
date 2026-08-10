@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from "react";
 import { X, ArrowLeft } from "lucide-react";
+import { SparkleStarOutline } from "./Home/SparkleStarOutline";
 
 /* ── Clases de input compartidas ── */
 const inputClass = `
@@ -10,8 +11,8 @@ const inputClass = `
   text-[var(--color-text-primary)]
   placeholder-[var(--color-text-muted)]
   focus:outline-none
-  focus:border-[var(--color-primary)]
-  focus:ring-2 focus:ring-[var(--color-primary)]/15
+  focus:border-[var(--color-secondary)]
+  focus:ring-2 focus:ring-[var(--color-secondary)]/15
   transition-all duration-200
 `;
 
@@ -22,15 +23,15 @@ function DeliveryOption({ icon, title, description, onClick }) {
       onClick={onClick}
       className="w-full p-4 rounded-xs text-left
         border-2 border-[var(--color-border)]
-        hover:border-[var(--color-primary)]/50
-        hover:bg-[var(--color-primary)]/4
-        hover:shadow-[0_4px_16px_rgba(199,4,4,0.08)]
+        hover:border-[var(--color-secondary)]/50
+        hover:bg-[var(--color-secondary)]/4
+        hover:shadow-[0_4px_16px_rgba(176,141,87,0.08)]
         hover:-translate-y-0.5
         active:translate-y-0
         transition-all duration-200 group"
     >
       <div className="flex items-center gap-4">
-        {/* Ícono en círculo amarillo */}
+        {/* Ícono en círculo dorado */}
         <div
           className="w-11 h-11 rounded-xs bg-[var(--color-secondary)]
           flex items-center justify-center shrink-0
@@ -49,7 +50,7 @@ function DeliveryOption({ icon, title, description, onClick }) {
           )}
         </div>
         {/* Flecha sutil */}
-        <div className="ml-auto text-[var(--color-border)] group-hover:text-[var(--color-primary)] transition-colors">
+        <div className="ml-auto text-[var(--color-border)] group-hover:text-[var(--color-secondary)] transition-colors">
           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
             <path
               fillRule="evenodd"
@@ -96,16 +97,17 @@ export function CheckoutModal({
         className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-xs
         shadow-[0_-8px_40px_rgba(0,0,0,0.15)] sm:shadow-2xl overflow-hidden"
       >
-        {/* Header con banda amarilla */}
-        <div className="bg-[#fefce8] px-6 pt-6 pb-5 border-b border-[var(--color-border)] relative">
+        {/* Header */}
+        <div className="bg-[var(--color-primary-light)] px-6 pt-6 pb-5 border-b border-[var(--color-border)] relative overflow-hidden">
           {/* Handle mobile */}
           <div className="w-10 h-1 rounded-full bg-[var(--color-border)] mx-auto mb-4 sm:hidden" />
 
-          {/* Pétalo decorativo de fondo */}
-          <svg viewBox="0 0 60 80" className="absolute right-4 top-2 text-[var(--color-lila)]"
-            style={{ width: 56, opacity: 0.3 }} aria-hidden="true">
-            <path d="M30 75 C10 60 0 40 5 20 C10 5 20 0 30 0 C40 0 50 5 55 20 C60 40 50 60 30 75Z" fill="currentColor" />
-          </svg>
+          {/* Estrella decorativa */}
+          <SparkleStarOutline
+            size={48}
+            stroke="var(--color-secondary)"
+            className="absolute right-4 top-3 opacity-20"
+          />
 
           <button
             onClick={onClose}
@@ -119,7 +121,7 @@ export function CheckoutModal({
 
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase
-            text-[var(--color-primary)] mb-1"
+            text-[var(--color-secondary)] mb-1"
           >
             Finalizar pedido
           </span>
@@ -136,7 +138,7 @@ export function CheckoutModal({
             description="Coordinamos día y horario por WhatsApp"
             icon={
               <svg
-                className="w-5 h-5 text-[var(--color-text-primary)]"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -156,7 +158,7 @@ export function CheckoutModal({
             description="Te pedimos la dirección en el siguiente paso"
             icon={
               <svg
-                className="w-5 h-5 text-[var(--color-text-primary)]"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -220,16 +222,17 @@ export function DeliveryFormModal({ isOpen, onClose, onConfirm, onBack }) {
         className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-xs
         shadow-[0_-8px_40px_rgba(0,0,0,0.15)] sm:shadow-2xl overflow-hidden"
       >
-        {/* Header con banda amarilla */}
-        <div className="bg-[#fefce8] px-6 pt-6 pb-5 border-b border-[var(--color-border)] relative">
+        {/* Header */}
+        <div className="bg-[var(--color-primary-light)] px-6 pt-6 pb-5 border-b border-[var(--color-border)] relative overflow-hidden">
           {/* Handle mobile */}
           <div className="w-10 h-1 rounded-full bg-[var(--color-border)] mx-auto mb-4 sm:hidden" />
 
-          {/* Pétalo decorativo */}
-          <svg viewBox="0 0 60 80" className="absolute right-4 top-2 text-[var(--color-lila)]"
-            style={{ width: 56, opacity: 0.3 }} aria-hidden="true">
-            <path d="M30 75 C10 60 0 40 5 20 C10 5 20 0 30 0 C40 0 50 5 55 20 C60 40 50 60 30 75Z" fill="currentColor" />
-          </svg>
+          {/* Estrella decorativa */}
+          <SparkleStarOutline
+            size={48}
+            stroke="var(--color-secondary)"
+            className="absolute right-4 top-3 opacity-20"
+          />
 
           <button
             onClick={onClose}
@@ -243,7 +246,7 @@ export function DeliveryFormModal({ isOpen, onClose, onConfirm, onBack }) {
 
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase
-            text-[var(--color-primary)] mb-1"
+            text-[var(--color-secondary)] mb-1"
           >
             Datos de envío
           </span>
@@ -297,8 +300,8 @@ export function DeliveryFormModal({ isOpen, onClose, onConfirm, onBack }) {
                 flex-1 py-3 rounded-xs text-sm font-semibold
                 border-2 border-[var(--color-border)]
                 text-[var(--color-text-secondary)]
-                hover:border-[var(--color-primary)]/40
-                hover:text-[var(--color-primary)]
+                hover:border-[var(--color-secondary)]/40
+                hover:text-[var(--color-secondary)]
                 hover:-translate-y-0.5
                 transition-all duration-200"
             >
@@ -308,10 +311,10 @@ export function DeliveryFormModal({ isOpen, onClose, onConfirm, onBack }) {
             <button
               type="submit"
               className="flex-1 py-3 rounded-xs text-sm font-bold
-                bg-[var(--color-primary)] text-white
-                hover:bg-[var(--color-primary-hover)]
+                bg-[var(--color-secondary)] text-white
+                hover:brightness-110
                 hover:-translate-y-0.5
-                hover:shadow-[0_6px_20px_rgba(199,4,4,0.35)]
+                hover:shadow-[0_6px_20px_rgba(176,141,87,0.35)]
                 active:translate-y-0 active:shadow-none
                 transition-all duration-200"
             >

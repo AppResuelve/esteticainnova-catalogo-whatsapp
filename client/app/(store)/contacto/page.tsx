@@ -5,6 +5,8 @@ import { MapPin, Mail, Clock, MessageCircle, ArrowRight } from "lucide-react";
 import { content } from "@/data/siteData";
 import { useStore } from "@/context/StoreContext";
 import { ContactForm } from "@/components/ContactForm";
+import { SparkleStar } from "@/components/store/Home/SparkleStar";
+import { SparkleStarOutline } from "@/components/store/Home/SparkleStarOutline";
 
 function ThinLine({ className = "", style = {} }) {
   return (
@@ -91,7 +93,7 @@ export default function Contact() {
     <>
       {/* ══ HERO — crema floral ══ */}
       <section
-        className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pb-8 md:pb-24"
+        className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pb-4 md:pb-10"
         style={{
           backgroundColor: "transparent",
           paddingTop: "5rem",
@@ -108,8 +110,12 @@ export default function Contact() {
         />
 
         <div className="relative max-w-7xl mx-auto z-10">
+          {/* Sparkle stars decorativos */}
+          <SparkleStar size={16} className="absolute top-4 right-[20%] md:right-[30%] opacity-40" />
+          <SparkleStarOutline size={24} className="absolute top-2 right-[15%] md:right-[25%] opacity-30" />
+
           <h1
-            className="max-w-2xl mb-5"
+            className="max-w-2xl mb-3"
             style={{
               fontFamily: "var(--font-heading)",
               fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
@@ -136,18 +142,20 @@ export default function Contact() {
       </section>
 
       {/* ══ GRID: FORMULARIO + INFO ══ */}
-      <section className="bg-transparent px-4 sm:px-6 lg:px-8 py-16">
+      <section className="bg-transparent px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 xl:gap-16">
             {/* ── Columna izquierda: Formulario ── */}
             <div>
-              <div className="mb-8">
+              <div className="mb-8 relative">
+                <SparkleStar size={14} className="absolute -top-1 -left-2 opacity-35" />
+                <SparkleStarOutline size={20} className="absolute -top-2 left-4 opacity-25" />
                 <h2 className="text-2xl font-normal text-[var(--color-text-primary)] mb-1" style={{ fontFamily: "var(--font-heading)" }}>
                   Envianos tu mensaje
                 </h2>
                 <div className="flex items-center gap-2 mt-3">
                   <div className="h-px w-8" style={{ backgroundColor: "var(--color-border-hover)" }} />
-                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--color-lila)", opacity: 0.7 }} />
+                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--color-secondary)", opacity: 0.7 }} />
                   <div className="h-px w-16" style={{ backgroundColor: "var(--color-border-hover)" }} />
                 </div>
               </div>
@@ -157,13 +165,15 @@ export default function Contact() {
 
             {/* ── Columna derecha: Info de contacto ── */}
             <div>
-              <div className="mb-8">
+              <div className="mb-8 relative">
+                <SparkleStar size={14} className="absolute -top-1 -right-2 opacity-35" />
+                <SparkleStarOutline size={20} className="absolute -top-2 right-4 opacity-25" />
                 <h2 className="text-2xl font-normal text-[var(--color-text-primary)]" style={{ fontFamily: "var(--font-heading)" }}>
                   {infoTitle}
                 </h2>
                 <div className="flex items-center gap-2 mt-3">
                   <div className="h-px w-8" style={{ backgroundColor: "var(--color-border-hover)" }} />
-                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--color-lila)", opacity: 0.7 }} />
+                  <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--color-secondary)", opacity: 0.7 }} />
                   <div className="h-px w-16" style={{ backgroundColor: "var(--color-border-hover)" }} />
                 </div>
               </div>
@@ -263,11 +273,11 @@ export default function Contact() {
 
             <div className="max-w-xl mx-auto text-center relative">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-px w-8" style={{ backgroundColor: "var(--color-lila)", opacity: 0.4 }} />
-                <span className="text-xs font-medium tracking-[0.2em] uppercase" style={{ color: "var(--color-lila)", opacity: 0.8 }}>
+                <div className="h-px w-8" style={{ backgroundColor: "var(--color-secondary)", opacity: 0.4 }} />
+                <span className="text-xs font-medium tracking-[0.2em] uppercase" style={{ color: "var(--color-secondary)", opacity: 0.8 }}>
                   Respuesta rápida
                 </span>
-                <div className="h-px w-8" style={{ backgroundColor: "var(--color-lila)", opacity: 0.4 }} />
+                <div className="h-px w-8" style={{ backgroundColor: "var(--color-secondary)", opacity: 0.4 }} />
               </div>
               <h2 className="text-2xl md:text-3xl font-normal text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
                 ¿Preferís hablar por WhatsApp?

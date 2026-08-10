@@ -12,6 +12,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import { useCart } from "@/context/CartContext";
 import { CartItem } from "@/components/store/CartItem";
 import { ordersService } from "@/services/storeService";
+import { CheckoutModal, DeliveryFormModal } from "@/components/store/CheckoutModal";
 
 function ThinLine({ className = "", style = {} }) {
   return (
@@ -104,6 +105,8 @@ export default function Cart() {
   } = content.cart;
   const { store, loading } = useStore();
   const router = useRouter();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isDeliveryFormOpen, setIsDeliveryFormOpen] = useState(false);
 
   if (loading) {
     return (
@@ -129,14 +132,22 @@ export default function Cart() {
       />
     );
 
-  const generateWhatsAppMessage = () => {
+  const generateWhatsAppMessage = (deliveryInfo?: { type: "pickup" | "delivery"; name?: string; address?: string }) => {
     const itemsList = items
       .map(
         (item) =>
           `🌸 ${item.quantity}x ${item.name} — ${formatPrice(item.unitPrice)} c/u`,
       )
       .join("\n");
-    const message = `Hola, me interesa consultar por un producto de ${store?.business_name || 'Estética Innova'}:\n\n${itemsList}\n\n💰 *Total: $${totalPrice.toLocaleString("es-AR")}*`;
+
+    let deliveryLine = "";
+    if (deliveryInfo) {
+      deliveryLine = deliveryInfo.type === "pickup"
+        ? "\n\n📦 *Retiro en local*"
+        : `\n\n🚚 *Envío a domicilio*\n📍 ${deliveryInfo.name} — ${deliveryInfo.address}`;
+    }
+
+    const message = `Hola, me interesa consultar por un producto de ${store?.business_name || 'Estética Innova'}:\n\n${itemsList}${deliveryLine}\n\n💰 *Total: $${totalPrice.toLocaleString("es-AR")}*`;
     return encodeURIComponent(message);
   };
 
@@ -146,7 +157,32 @@ export default function Cart() {
   };
 
   const handleRequest = () => {
-    const message = generateWhatsAppMessage();
+    setIsCheckoutOpen(true);
+  };
+
+  const handlePickup = () => {
+    setIsCheckoutOpen(false);
+    const message = generateWhatsAppMessage({ type: "pickup" });
+    openWhatsApp(message);
+    ordersService.create({
+      items: items.map((i) => ({
+        productId: i.productId,
+        name: i.name,
+        price: i.unitPrice,
+        qty: i.quantity,
+      })),
+      total: totalPrice,
+    }).catch(() => {});
+  };
+
+  const handleDelivery = () => {
+    setIsCheckoutOpen(false);
+    setIsDeliveryFormOpen(true);
+  };
+
+  const handleConfirmDelivery = (name: string, address: string) => {
+    setIsDeliveryFormOpen(false);
+    const message = generateWhatsAppMessage({ type: "delivery", name, address });
     openWhatsApp(message);
     ordersService.create({
       items: items.map((i) => ({
@@ -161,6 +197,22 @@ export default function Cart() {
 
   return (
     <>
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        onConfirmDelivery={handleDelivery}
+        onConfirmPickup={handlePickup}
+      />
+      <DeliveryFormModal
+        isOpen={isDeliveryFormOpen}
+        onClose={() => setIsDeliveryFormOpen(false)}
+        onConfirm={handleConfirmDelivery}
+        onBack={() => {
+          setIsDeliveryFormOpen(false);
+          setIsCheckoutOpen(true);
+        }}
+      />
+
       {/* ══ HERO — crema floral ══ */}
       <section
         className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pb-4 md:pb-12"
