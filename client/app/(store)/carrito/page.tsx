@@ -12,6 +12,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import { useCart } from "@/context/CartContext";
 import { CartItem } from "@/components/store/CartItem";
 import { ordersService } from "@/services/storeService";
+import { WholesaleProgressBar } from "@/components/store/WholesaleProgressBar";
 import { CheckoutModal, DeliveryFormModal } from "@/components/store/CheckoutModal";
 
 function ThinLine({ className = "", style = {} }) {
@@ -92,7 +93,7 @@ function CartEmpty({ emptyTitle, emptyMessage, browseProducts }) {
    CART PAGE
 ══════════════════════════════════════════════════════════════════════ */
 export default function Cart() {
-  const { items, totalItems, totalPrice } = useCart();
+  const { items, totalItems, totalPrice, wholesale } = useCart();
   const {
     title,
     emptyTitle,
@@ -107,6 +108,8 @@ export default function Cart() {
   const router = useRouter();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isDeliveryFormOpen, setIsDeliveryFormOpen] = useState(false);
+
+  const finalTotal = wholesale?.finalTotal ?? totalPrice
 
   if (loading) {
     return (
@@ -147,7 +150,7 @@ export default function Cart() {
         : `\n\n🚚 *Envío a domicilio*\n📍 ${deliveryInfo.name} — ${deliveryInfo.address}`;
     }
 
-    const message = `Hola, me interesa consultar por un producto de ${store?.business_name || 'Estética Innova'}:\n\n${itemsList}${deliveryLine}\n\n💰 *Total: $${totalPrice.toLocaleString("es-AR")}*`;
+    const message = `Hola, me interesa consultar por un producto de ${store?.business_name || 'Estética Innova'}:\n\n${itemsList}${deliveryLine}\n\n💰 *Total: $${finalTotal.toLocaleString("es-AR")}*`;
     return encodeURIComponent(message);
   };
 
@@ -171,7 +174,7 @@ export default function Cart() {
         price: i.unitPrice,
         qty: i.quantity,
       })),
-      total: totalPrice,
+      total: finalTotal,
     }).catch(() => {});
   };
 
@@ -191,7 +194,7 @@ export default function Cart() {
         price: i.unitPrice,
         qty: i.quantity,
       })),
-      total: totalPrice,
+      total: finalTotal,
     }).catch(() => {});
   };
 
@@ -308,6 +311,10 @@ export default function Cart() {
                   </h3>
                   <ThinLine className="w-10 mb-6" />
 
+                  <div className="mb-5">
+                    <WholesaleProgressBar wholesale={wholesale} />
+                  </div>
+
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm text-[var(--color-text-secondary)]">
                       {subtotal}
@@ -316,6 +323,17 @@ export default function Cart() {
                       ${totalPrice.toLocaleString("es-AR")}
                     </span>
                   </div>
+
+                  {wholesale?.eligible && (
+                    <div className="flex justify-between items-center mt-1">
+                      <span className="text-sm text-[var(--color-text-secondary)]">
+                        Descuento mayorista
+                      </span>
+                      <span className="text-sm font-bold" style={{ color: "var(--color-primary)" }}>
+                        -${wholesale.discountAmount.toLocaleString("es-AR")}
+                      </span>
+                    </div>
+                  )}
 
                   <ThinLine className="my-4" />
 
@@ -327,7 +345,7 @@ export default function Cart() {
                       className="text-2xl font-bold"
                       style={{ color: "var(--color-text-primary)" }}
                     >
-                      ${totalPrice.toLocaleString("es-AR")}
+                      ${finalTotal.toLocaleString("es-AR")}
                     </span>
                   </div>
 

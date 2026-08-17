@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { X, ShoppingCart, Trash2 } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/utils/formatPrice'
+import { WholesaleProgressBar } from './WholesaleProgressBar'
 
 export function CartDrawer({ open, onClose }) {
-  const { items, totalItems, totalPrice, removeItem, clearCart } = useCart()
+  const { items, totalItems, totalPrice, wholesale, removeItem, clearCart } = useCart()
 
   return (
     <>
@@ -142,12 +143,27 @@ export function CartDrawer({ open, onClose }) {
             className="px-5 py-4 shrink-0"
             style={{ borderTop: '1px solid var(--color-border)' }}
           >
+            <div className="mb-4">
+              <WholesaleProgressBar wholesale={wholesale} />
+            </div>
+
+            {wholesale?.eligible && (
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                  Descuento mayorista
+                </span>
+                <span className="text-sm font-bold" style={{ color: 'var(--color-primary)' }}>
+                  -${wholesale.discountAmount.toLocaleString('es-AR')}
+                </span>
+              </div>
+            )}
+
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
                 Total
               </span>
               <span className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-                ${totalPrice.toLocaleString('es-AR')}
+                ${(wholesale?.finalTotal ?? totalPrice).toLocaleString('es-AR')}
               </span>
             </div>
 

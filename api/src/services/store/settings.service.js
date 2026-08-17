@@ -17,6 +17,11 @@ const DEFAULTS = [
   { key: 'youtube', value: '' },
   { key: 'monthly_changes_limit', value: 2 },
   { key: 'changes_this_month', value: 0 },
+  { key: 'wholesale_discount_enabled', value: false },
+  { key: 'wholesale_discount_min_amount', value: 0 },
+  { key: 'wholesale_discount_percentage', value: 0 },
+  { key: 'wholesale_discount_count_discounted', value: false },
+  { key: 'wholesale_discount_apply_to_discounted', value: false },
 ]
 
 const ensureDefaults = async () => {

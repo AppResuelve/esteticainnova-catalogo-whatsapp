@@ -113,6 +113,43 @@ body:has(.admin-root) ::selection {
   }
 }
 
+/* ── Temblor botón flotante de descuento ── */
+@keyframes wholesale-shake {
+  0%,
+  88% {
+    transform: rotate(0deg);
+  }
+  90% {
+    transform: rotate(-6deg);
+  }
+  92% {
+    transform: rotate(6deg);
+  }
+  94% {
+    transform: rotate(-6deg);
+  }
+  96% {
+    transform: rotate(6deg);
+  }
+  98% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* ── Pulso del anillo dorado (100% descuento) ── */
+@keyframes wholesale-ring-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
 /* ── Home background ── */
 .store-home-bg {
   background-color: #f4f3f1;

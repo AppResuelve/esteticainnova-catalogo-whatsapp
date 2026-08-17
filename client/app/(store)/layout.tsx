@@ -8,6 +8,7 @@ import { CartDrawerProvider, useCartDrawer } from "@/context/CartDrawerContext"
 import { Navbar } from "@/components/store/Navbar"
 import { Footer } from "@/components/store/Footer"
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton"
+import { FloatingWholesaleProgressButton } from "@/components/ui/FloatingWholesaleProgressButton"
 import { ScrollToTop } from "@/components/ScrollToTop"
 import { StoreBlocked } from "@/components/store/StoreBlocked"
 import { CartDrawer } from "@/components/store/CartDrawer"
@@ -42,6 +43,7 @@ function StoreInner({ children }: { children: React.ReactNode }) {
         <Footer waveFromColor="#ffffff" />
       </div>
       <FloatingWhatsAppButton />
+      <FloatingWholesaleProgressButton />
       <CartDrawer open={open} onClose={closeCart} />
     </CartProvider>
   )

@@ -71,7 +71,7 @@ function cartReducer(state, action) {
 }
 
 export function CartProvider({ children }) {
-  const { productsMap, loading } = useStore()
+  const { productsMap, loading, store } = useStore()
 
   const [state, dispatch] = useReducer(cartReducer, undefined, () => {
     try {
@@ -135,6 +135,54 @@ export function CartProvider({ children }) {
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.subtotal, 0)
 
+  const wholesale = useMemo(() => {
+    const enabled = !!(store?.wholesale_discount_enabled)
+    const minAmount = Number(store?.wholesale_discount_min_amount) || 0
+    const percentage = Number(store?.wholesale_discount_percentage) || 0
+    const countDiscounted = !!store?.wholesale_discount_count_discounted
+    const applyToDiscounted = !!store?.wholesale_discount_apply_to_discounted
+
+    let minBase = 0
+    let discountBase = 0
+
+    for (const item of cartItems) {
+      const hasIndividualDiscount = Number(item.discountPercentage) > 0
+      if (hasIndividualDiscount) {
+        if (countDiscounted) {
+          minBase += item.subtotal
+          if (applyToDiscounted) discountBase += item.subtotal
+        }
+      } else {
+        minBase += item.subtotal
+        discountBase += item.subtotal
+      }
+    }
+
+    const active = enabled && minAmount > 0 && percentage > 0
+    const eligible = active && minBase >= minAmount
+    const discountAmount = eligible ? discountBase * (percentage / 100) : 0
+    const finalTotal = totalPrice - discountAmount
+
+    return {
+      enabled,
+      minAmount,
+      percentage,
+      countDiscounted,
+      applyToDiscounted,
+      minBase,
+      discountBase,
+      eligible,
+      discountAmount,
+      finalTotal,
+      progress: {
+        current: minBase,
+        min: minAmount,
+        remaining: Math.max(0, minAmount - minBase),
+        pct: minAmount > 0 ? Math.min((minBase / minAmount) * 100, 100) : 0,
+      },
+    }
+  }, [cartItems, totalPrice, store])
+
   const addItem = (productId, quantity = 1, skuId = null) => {
     dispatch({ type: 'ADD_ITEM', payload: { productId, quantity, skuId } })
   }
@@ -161,6 +209,7 @@ export function CartProvider({ children }) {
     items: cartItems,
     totalItems,
     totalPrice,
+    wholesale,
     addItem,
     removeItem,
     updateQuantity,
