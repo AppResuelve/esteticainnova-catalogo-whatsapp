@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
+import { optimizeImageUrl } from "@/utils/imageUrl";
 
 export function ProductCard({ product }) {
   const { addItem, getItemQuantity } = useCart();
@@ -48,7 +49,7 @@ export function ProductCard({ product }) {
             style={{ borderRadius: "2px" }}
           >
             <img
-              src={product.images[0]}
+              src={optimizeImageUrl(product.images[0])}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-105"
             />
@@ -173,7 +174,7 @@ export function ProductCard({ product }) {
                   ? "var(--color-primary-light)"
                   : "var(--color-primary)",
               color: quantity > 0 ? "var(--color-text-primary)" : "#ffffff",
-              border: quantity > 0 ? "1px solid var(--color-primary)" : "none",
+              border: quantity > 0 ? "1px solid var(--color-primary)" : "1px solid transparent",
             }}
             onMouseEnter={(e) => {
               if (quantity === 0)
